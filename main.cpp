@@ -70,6 +70,15 @@ download(const string& address) {
             cout << curl_easy_strerror(res) << endl;
             exit(1);
         }
+        else
+        {
+            double namelookup_time;
+            res = curl_easy_getinfo(curl, CURLINFO_NAMELOOKUP_TIME, &namelookup_time);
+            if (res == CURLE_OK)
+            {
+                cerr << "Name lookup time: " << namelookup_time << endl;
+            }
+        }
         curl_easy_cleanup(curl);
     }
    return read_input(buffer, false);
