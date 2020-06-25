@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstdio>
 #include "histogram.h"
 #include "svg.h"
 using namespace std;
@@ -13,9 +14,6 @@ vector<double> input_numbers(const size_t count) {
 
     return result;
 }
-
-
-
 
 int main() {
     // Ввод данных
@@ -33,8 +31,22 @@ int main() {
     // Обработка данных
     const auto bins = make_histogram(numbers, bin_count);
 
+    DWORD mask = 0x0000ffff;
+    DWORD mask_major = 0x000000f;
+    DWORD info = GetVersion();
+    DWORD platform = info >> 16;
+    DWORD version = info & mask;
+    DWORD version_major = version & mask_major;
+    DWORD version_minor = version >>8;
+    DWORD build;
+
+    if ((info & 0x40000000) == 0);
+    {
+        build = platform;
+    }
+
     // Вывод данных
-    show_histogram_svg(bins);
+    show_histogram_svg(bins, version_major, version_minor, build);
 
     return 0;
 }
