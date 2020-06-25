@@ -45,8 +45,12 @@ int main() {
         build = platform;
     }
 
+    char computer_name[MAX_COMPUTERNAME_LENGTH+1];
+    DWORD size = sizeof(computer_name);
+    GetComputerName(computer_name, &size);
+
     // Вывод данных
-    show_histogram_svg(bins, version_major, version_minor, build);
+    show_histogram_svg(bins, version_major, version_minor, build, computer_name);
 
     return 0;
 }

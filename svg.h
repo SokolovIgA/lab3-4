@@ -9,7 +9,7 @@ void svg_begin(double width, double height);
 void svg_end();
 void svg_text(double left, double baseline, size_t text);
 void svg_rect(double x, double y, double width, double height, std::string stroke = "black", std::string fill = "black");
-void show_histogram_svg(const std::vector<size_t>& bins, DWORD version_major, DWORD version_minor, DWORD build);
+void show_histogram_svg(const std::vector<size_t>& bins, DWORD version_major, DWORD version_minor, DWORD build, char computer_name[]);
 size_t find_min(const std::vector<size_t>& bins);
 size_t find_max(const std::vector<size_t>& bins);
 

@@ -59,7 +59,7 @@ void svg_rect(double x, double y, double width, double height, string stroke, st
     cout << "<rect x='" << x << "' y='" << y << "' width='" << width << "' height='" << height << "' stroke='" << stroke << "' fill='" << fill << "' />";
 }
 
-void show_histogram_svg(const vector<size_t>& bins, DWORD version_major, DWORD version_minor, DWORD build)
+void show_histogram_svg(const vector<size_t>& bins, DWORD version_major, DWORD version_minor, DWORD build, char computer_name[])
 {
     const auto IMAGE_WIDTH = 400;
     const auto IMAGE_HEIGHT = 300;
@@ -101,7 +101,8 @@ void show_histogram_svg(const vector<size_t>& bins, DWORD version_major, DWORD v
         top += BIN_HEIGHT;
         i++;
     }
-     cout << "<text x='" << left << "' y='" << top + 2*TEXT_BASELINE << "'>Windows v" << version_major << "."
+    cout << "<text x='" << left << "' y='" << top + TEXT_BASELINE << "'>Computer name: " << computer_name << "</text>";
+    cout << "<text x='" << left << "' y='" << top + 2*TEXT_BASELINE << "'>Windows v" << version_major << "."
     << version_minor << " (build " << build << ")</text>";
     svg_end();
 }
