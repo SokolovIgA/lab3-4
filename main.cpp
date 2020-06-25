@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <curl/curl.h>
+#include <cstdio>
 #include "histogram.h"
 #include "svg.h"
 using namespace std;
@@ -57,7 +58,6 @@ download(const string& address) {
     stringstream buffer;
 
     curl_global_init(CURL_GLOBAL_ALL);
-
     CURL *curl = curl_easy_init();
     if(curl) {
         CURLcode res;
@@ -84,6 +84,7 @@ download(const string& address) {
    return read_input(buffer, false);
 }
 
+
 int main(int argc, char* argv[])
 {
      Input input;
@@ -93,6 +94,26 @@ int main(int argc, char* argv[])
         input = read_input(cin, true);
     }
     const auto bins = make_histogram(input);
-    show_histogram_svg(bins);
+
+    DWORD mask = 0x0000ffff;
+    DWORD mask_major = 0x000000f;
+    DWORD info = GetVersion();
+    DWORD platform = info >> 16;
+    DWORD version = info & mask;
+    DWORD version_major = version & mask_major;
+    DWORD version_minor = version >>8;
+    DWORD build;
+
+    if ((info & 0x40000000) == 0);
+    {
+        build = platform;
+    }
+
+    char computer_name[MAX_COMPUTERNAME_LENGTH+1];
+    DWORD size = sizeof(computer_name);
+    GetComputerName(computer_name, &size);
+
+    // Вывод данных
+    show_histogram_svg(bins, version_major, version_minor, build, computer_name);
     return 0;
 }

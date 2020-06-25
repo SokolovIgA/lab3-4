@@ -3,14 +3,14 @@
 
 #include <vector>
 #include <string>
-using namespace std;
+#include <windows.h>
 
 void svg_begin(double width, double height);
 void svg_end();
 void svg_text(double left, double baseline, size_t text);
-void svg_rect(double x, double y, double width, double height, string stroke = "black", string fill = "black");
-void show_histogram_svg(const vector<size_t>& bins);
-size_t find_min(const vector<size_t>& bins);
-size_t find_max(const vector<size_t>& bins);
+void svg_rect(double x, double y, double width, double height, std::string stroke = "black", std::string fill = "black");
+void show_histogram_svg(const std::vector<size_t>& bins, DWORD version_major, DWORD version_minor, DWORD build, char computer_name[]);
+size_t find_min(const std::vector<size_t>& bins);
+size_t find_max(const std::vector<size_t>& bins);
 
 #endif // SVG_H_INCLUDED
